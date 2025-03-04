@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "Maine Coon",
+    "description": "Maine Coon adalah ras kucing besar dengan bulu lebat, ekor panjang berbulu tebal, dan telinga berujung runcing. Mereka dikenal ramah, cerdas, serta memiliki sifat sosial yang lembut, menjadikannya kucing peliharaan yang ideal. 🐱✨",
+    "price": 600000,
+    "stock": 5,
+    "CategoryId": 1
+  },
+  {
+    "id": 2,
+    "name": "Pudel",
+    "description": "Pudel adalah anjing cerdas dan elegan dengan bulu keriting yang tidak mudah rontok. Mereka aktif, mudah dilatih, dan sangat setia kepada pemiliknya. Pudel hadir dalam berbagai ukuran, dari standar hingga mini dan toy. 🐩✨",
+    "price": 700000,
+    "stock": 5,
+    "CategoryId": 2
+  },
+  {
+    "id": 3,
+    "name": "Long-tail",
+    "description": "Long-tailed chinchilla (Chinchilla lanigera) adalah hewan pengerat kecil berbulu sangat lembut dengan ekor panjang berbulu tebal. Berasal dari pegunungan Andes, mereka lincah, aktif di malam hari, dan dikenal karena kemampuan melompat yang tinggi. 🐹✨",
+    "price": 10000000,
+    "stock": 5,
+    "CategoryId": 3
+  },
+  {
+    "id": 4,
+    "name": "Winter White",
+    "description": "Winter White Hamster adalah hamster kecil yang dikenal karena bulunya yang bisa berubah warna menjadi putih saat musim dingin. Mereka memiliki tubuh gemuk, ekor pendek, dan sifat ramah serta aktif. Hamster ini cocok sebagai hewan peliharaan karena perawatannya yang mudah. 🐹❄️",
+    "price": 50000,
+    "stock": 5,
+    "CategoryId": 4
+  }
+]

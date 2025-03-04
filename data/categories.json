@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Kucing",
+    "description": "Kucing adalah hewan mamalia kecil yang lincah, berbulu lembut, dan memiliki mata tajam. Mereka dikenal mandiri, suka bermain, dan sering menunjukkan kasih sayang dengan mendengkur. 🐱"
+  },
+  {
+    "id": 2,
+    "name": "Anjing",
+    "description": "Anjing adalah hewan mamalia yang setia, cerdas, dan bersahabat. Mereka memiliki penciuman tajam, berbagai ukuran dan ras, serta sering dijuluki sebagai 'sahabat terbaik manusia.' 🐶"
+  },
+  {
+    "id": 3,
+    "name": "Chincilla",
+    "description": "Chinchilla adalah hewan pengerat kecil berbulu sangat lembut, berasal dari pegunungan Andes. Mereka aktif di malam hari, lincah, dan dikenal karena lompatannya yang tinggi. 🐹"
+  },
+  {
+    "id": 4,
+    "name": "Hamster",
+    "description": "Hamster adalah hewan pengerat kecil dengan tubuh gemuk, bulu lembut, dan pipi yang bisa menyimpan makanan. Mereka aktif di malam hari, suka menggali, dan sering dijadikan hewan peliharaan karena perawatannya yang mudah. 🐹"
+  }
+]
