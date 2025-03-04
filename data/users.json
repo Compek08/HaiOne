@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "username": "Wan",
+    "role": "user",
+    "email": "franzzinaction@gmail.com",
+    "password": "wanda123"
+  },
+  {
+    "id": 2,
+    "username": "Compek",
+    "role": "admin",
+    "email": "compek@dr.com",
+    "password": "compekiah123"
+  }
+]

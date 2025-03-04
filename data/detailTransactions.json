@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "quantity": 5,
+    "TransactionId": 1,
+    "ProductId": 2
+  },
+  {
+    "id": 2,
+    "quantity": 10,
+    "TransactionId": 2,
+    "ProductId": 2
+  },
+  {
+    "id": 3,
+    "quantity": 5,
+    "TransactionId": 3,
+    "ProductId": 3
+  },
+  {
+    "id": 4,
+    "quantity": 7,
+    "TransactionId": 4,
+    "ProductId": 4
+  }
+]

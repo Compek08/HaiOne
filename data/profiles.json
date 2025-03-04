@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Wan",
+    "phone": "user",
+    "address": "franzzinaction@gmail.com",
+    "UserId": "wanda123"
+  },
+  {
+    "id": 2,
+    "name": "Compek",
+    "phone": "admin",
+    "address": "compek@dr.com",
+    "UserId": "compekiah123"
+  }
+]
