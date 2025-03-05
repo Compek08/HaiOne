@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Phone is Required"
         },
         address: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             msg: "Address is Required"
         },
         UserId: {
