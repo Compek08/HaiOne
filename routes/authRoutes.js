@@ -2,7 +2,7 @@ const express = require("express");
 const { register, login, logout } = require("../controllers/authController");
 const { isAuthenticated } = require("../middlewares/authMiddleware");
 
-const router = express.Router();
+const router = express.Router(); // Ensure this is the only declaration of 'router' in this file
 
 router.post("/register", register);
 router.post("/login", login);

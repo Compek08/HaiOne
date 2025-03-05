@@ -1,8 +1,9 @@
+// app.js
 require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
-const authRoutes = require("./routes/authRoutes"); // Menggunakan index.js sebagai entry point route
+const router = require("./routes");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,22 +13,25 @@ app.set("view engine", "ejs");
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json()); // Untuk parsing request body dalam JSON
+app.use(bodyParser.json());
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "secret-key",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }, // Untuk testing di HTTP, ubah ke true jika menggunakan HTTPS
+    cookie: { secure: false },
   })
 );
 
-// Routes
+// Define the root route
+app.get("/", (req, res) => {
+  res.send("Welcome to the homepage!");
+});
 
-// app.use("/", router);
-app.use("/auth", authRoutes);
+// Use the router for other routes
+app.use("/", router);
 
 // Start Server
 app.listen(port, () => {
-  console.log(`😭😭😭😭😭 Server running on port ${port} 😭😭😭😭😭`);
+  console.log(`Server running on port ${port}`);
 });
