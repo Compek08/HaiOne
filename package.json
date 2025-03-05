@@ -18,7 +18,15 @@
   },
   "devDependencies": {
     "init": "^0.1.2",
-    "sequelize": "^6.37.5",
+    "sequelize": "^6.37.6",
     "sequelize-cli": "^6.6.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Compek08/HaiOne.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Compek08/HaiOne/issues"
+  },
+  "homepage": "https://github.com/Compek08/HaiOne#readme"
 }
