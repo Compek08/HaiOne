@@ -2,21 +2,21 @@
   {
     "id": 1,
     "status": "paid",
-    "UserId": "1"
+    "UserId": 1
   },
   {
     "id": 2,
     "status": "pending",
-    "UserId": 2
+    "UserId": 1
   },
   {
     "id": 3,
     "status": "paid",
-    "UserId": 3
+    "UserId": 1
   },
   {
     "id": 4,
     "status": "pending",
-    "UserId": 4
+    "UserId": 1
   }
 ]
