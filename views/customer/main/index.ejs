@@ -1,0 +1,41 @@
+<h2 class="mb-4">Categories</h2>
+        <div class="d-flex flex-wrap gap-2">
+          <% category.forEach(cat => { %>
+          <a href="/category/<%= cat.id %>" class="btn btn-primary">
+            <%= cat.name %>
+          </a>
+          <% }) %>
+        </div>
+
+        <!-- Daftar Semua Produk -->
+        <h2 class="mb-4 mt-5">All Products</h2>
+        <div class="row">
+          <% category.forEach(cat => { %> <% cat.Products.forEach(product => {
+          %>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <!-- Gambar Produk -->
+              <img
+                src="<%= product.image %>"
+                class="card-img-top"
+                alt="<%= product.name %>"
+                style="height: 200px; object-fit: cover"
+              />
+              <div class="card-body">
+                <!-- Nama Kategori dan Produk -->
+                <h5 class="card-title">
+                  <%= cat.name %> - <%= product.name %>
+                </h5>
+                <!-- Harga Produk -->
+                <p class="card-text"><%= product.formattedPrice %></p>
+                <!-- Tombol See Details -->
+                <a href="/product/<%= product.id %>" class="btn btn-primary"
+                  >See Details</a
+                >
+              </div>
+            </div>
+          </div>
+          <% }) %> <% }) %>
+        </div>
+      </div>
+    </section>
