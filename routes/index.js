@@ -1,5 +1,6 @@
+const WebController = require('../controllers/webController')
 const router = require('express').Router()
 
-router.get("/", (_, res) => res.redirect("/stores"))
+router.get("/", WebController.index)
 
 module.exports = router 

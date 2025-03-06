@@ -3,3 +3,5 @@ class WebController {
 
     }
 }
+
+module.exports = WebController
