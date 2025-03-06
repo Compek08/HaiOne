@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.use(isAdmin)
 router.get("/", AdminController.index)
+router.get("/categories", AdminController.categories)
+router.get("/categories/:id", AdminController.showCategory)
 router.get("/products", AdminController.products)
 router.get("/products/add", AdminController.addProduct)
 router.post("/products/add", AdminController.createProduct)
