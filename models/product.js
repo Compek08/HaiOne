@@ -1,4 +1,5 @@
 "use strict";
+const { formatRupiah } = require("../helpers/helper");
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
@@ -13,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.DetailTransaction);
 
       this.addScope("defaultHook", { include: models.Category });
+    }
+
+    get priceRupiah() {
+      return formatRupiah(this.price);
     }
   }
   Product.init(

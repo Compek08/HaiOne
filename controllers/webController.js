@@ -1,5 +1,4 @@
 const { Product, Transaction, Category } = require("../models");
-const { formatRupiah } = require("../helpers/helper");
 
 class WebController {
   static async home(_, res) {
@@ -8,7 +7,6 @@ class WebController {
       res.render("customer/template", {
         category,
         body: "index",
-        formatRupiah,
       });
     } catch (error) {
       res.send(error);
@@ -33,7 +31,6 @@ class WebController {
   static async category(_, res) {
     try {
       let category = await Category.findAll();
-      //   res.send(category);
       res.render("customer/template", {
         category,
         body: "category",
@@ -56,29 +53,22 @@ class WebController {
     }
   }
 
-  static async productId(_, res) {
+  static async productId(req, res) {
     try {
+      const { id } = req.params;
+      let product = await Product.findByPk(id, { include: Category });
+      res.render("customer/template", {
+        product,
+        body: "product",
+      });
     } catch (error) {
       res.send(error);
     }
   }
 
-  static async addCart(_, res) {
+  static async showCart(_, res) {
     try {
-    } catch (error) {
-      res.send(error);
-    }
-  }
-
-  static async handlerAddCart(_, res) {
-    try {
-    } catch (error) {
-      res.send(error);
-    }
-  }
-
-  static async deleteCart(_, res) {
-    try {
+      res.render("customer/cart", { body: "cart" });
     } catch (error) {
       res.send(error);
     }

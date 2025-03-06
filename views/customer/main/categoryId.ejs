@@ -1,0 +1,79 @@
+<section class="py-5">
+  <div class="container py-5">
+    <!-- Judul Kategori -->
+    <div class="text-center mb-5">
+      <h1 class="fw-bold"><%= category.name %></h1>
+      <p class="lead"><%= category.description %></p>
+    </div>
+
+    <!-- Daftar Produk -->
+    <h2 class="mb-4">Products</h2>
+    <div class="row">
+      <% category.Products.forEach(product => { %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <!-- Gambar Produk -->
+          <img
+            src="<%= product.image %>"
+            class="card-img-top"
+            alt="<%= product.name %>"
+            style="height: 200px; object-fit: cover"
+          />
+          <div class="card-body">
+            <!-- Nama Produk -->
+            <h5 class="card-title"><%= product.name %></h5>
+            <!-- Harga Produk -->
+            <p class="card-text"><%= product.priceRupiah %></p>
+            <!-- Tombol See Details dan Add to Cart -->
+            <div class="d-flex justify-content-between">
+              <a href="/product/<%= product.id %>" class="btn btn-primary"
+                >See Details</a
+              >
+              <a href="#" class="btn btn-success">Add to Cart</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const addToCartButtons = document.querySelectorAll(".add-to-cart");
+
+    addToCartButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const productId = button.getAttribute("data-product-id");
+        const productName = button.getAttribute("data-product-name");
+        const productPrice = button.getAttribute("data-product-price");
+        const productImage = button.getAttribute("data-product-image");
+
+        // Ambil cart dari localStorage
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Cek apakah produk sudah ada di cart
+        const existingProduct = cart.find((item) => item.id === productId);
+
+        if (existingProduct) {
+          // Jika produk sudah ada, tambahkan quantity
+          existingProduct.quantity += 1;
+        } else {
+          // Jika produk belum ada, tambahkan ke cart
+          cart.push({
+            id: productId,
+            name: productName,
+            price: productPrice,
+            image: productImage,
+            quantity: 1,
+          });
+        }
+
+        // Simpan cart ke localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        alert("Product added to cart!");
+      });
+    });
+  });
+</script>
