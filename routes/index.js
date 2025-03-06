@@ -1,16 +1,9 @@
 const express = require("express");
-const authRoutes = require("./authRoutes");
-const customerRoutes = require("./customer");
-
+const webRoutes = require("./web");
+const adminRoutes = require("./admin");
 const router = express.Router();
 
-// Define the root route
-router.get("/", (req, res) => {
-    res.send("Welcome to the homepage!");
-});
-
-// Use other routes
-router.use("/auth", authRoutes);
-router.use("/customer", customerRoutes);
+router.use("/", webRoutes);
+router.use("/admin", adminRoutes);
 
 module.exports = router;

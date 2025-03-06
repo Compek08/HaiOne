@@ -1,5 +1,5 @@
 class WebController {
-    static async index() {
+    static async index(_, res) {
 
     }
 }
