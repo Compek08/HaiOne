@@ -34,8 +34,8 @@ const login = async (req, res) => {
         if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
 
         // Simpan session
-        req.session.user = { username: user.username };
-        res.json({ message: "Login successful" });
+        req.session.user = user;
+        res.redirect(`/${ user.role === "admin" ? "admin" : "" }`);
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
     }
