@@ -13,7 +13,7 @@ router.get("/category", WebController.category);
 
 router.use(isAuthenticated);
 
-router.get("/home", isAuthenticated, WebController.home);
+router.get("/", isAuthenticated, WebController.home);
 router.get("/category", isAuthenticated, WebController.category);
 router.get("/category/:id", isAuthenticated, WebController.categoryId);
 router.get("/product/:id", isAuthenticated, WebController.productId);
