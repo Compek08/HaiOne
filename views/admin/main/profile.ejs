@@ -1,0 +1,36 @@
+<div class="app-content">
+    <div class="container-fluid px-5">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" id="name" name="name" class="form-control" value="<%= profile.name %>" disabled readonly placeholder="Name">
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="angka form-label">Phone</label>
+            <input type="number" id="phone" name="phone" class="form-control" value="<%= profile.phone %>" disabled readonly placeholder="Phone">
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Adress</label>
+            <textarea class="form-control" id="address" rows="3" readonly disabled><%= profile.address %></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" id="username" name="username" class="form-control" value="<%= user.username %>" disabled readonly placeholder="Username">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" class="form-control" value="<%= user.email %>" disabled readonly placeholder="Email">
+        </div>
+        <div class="mb-3 d-none">
+            <label for="oPassword" class="form-label">Old Password</label>
+            <input type="oPassword" id="oPassword" name="oPassword" class="form-control" value="" disabled readonly placeholder="Old Password">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" class="form-control" value="" disabled readonly placeholder="Password">
+        </div>
+        <div class="mb-3 d-none">
+            <label for="vPassword" class="form-label">Verify Password</label>
+            <input type="vPassword" id="vPassword" name="vPassword" class="form-control" value="" disabled readonly placeholder="Verify Password">
+        </div>
+    </div>
+</div>

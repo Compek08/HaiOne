@@ -1,4 +1,4 @@
-const { Product, Category } = require("../models")
+const { Product, Category, Profile } = require("../models")
 
 class AdminController {
     static async index(_, res) {
@@ -10,10 +10,11 @@ class AdminController {
         }
     }
 
-    static async categories(_, res) {
+    static async profile(req, res) {
         try {
-            const products = await Product.findAll()
-            res.render("/admin/template", { body: "products", title: "List Products", products })
+            const profile = await Profile.findOne({ where: { UserId: req.user.id } })
+            const categories = await Category.findAll()
+            res.render("admin/template", { body: "profile", title: "User Profile", profile, categories })
         } catch (e) {
             res.send(e.message)
         }
@@ -21,8 +22,9 @@ class AdminController {
 
     static async showCategory(req, res) {
         try {
-            const products = await Product.findAll()
-            res.render("/admin/template", { body: "products", title: "List Products", products })
+            const products = await Category.findByPk(req.params.id, { include: Product })
+            const categories = await Category.findAll()
+            res.render("admin/template", { body: "category", title: `Category ${ products.name }`, products, categories })
         } catch (e) {
             res.send(e.message)
         }
@@ -31,7 +33,8 @@ class AdminController {
     static async products(_, res) {
         try {
             const products = await Product.findAll()
-            res.render("/admin/template", { body: "products", title: "List Products", products })
+            const categories = await Category.findAll()
+            res.render("admin/template", { body: "products", title: "List Products", products, categories })
         } catch (e) {
             res.send(e.message)
         }
@@ -40,7 +43,7 @@ class AdminController {
     static async addProduct(_, res) {
         try {
             const categories = await Category.findAll()
-            res.render("/admin/template", { body: "form", title: "Add Product", categories })
+            res.render("admin/template", { body: "form", title: "Add Product", categories })
         } catch (e) {
             res.send(e.message)
         }
@@ -58,7 +61,8 @@ class AdminController {
     static async showProduct(req, res) {
         try {
             const product = await Product.findByPk(req.params.id)
-            res.render("/admin/template", { body: "product", title: product.name, product })
+            const categories = await Category.findAll()
+            res.render("admin/template", { body: "product", title: product.name, product, categories })
         } catch (e) {
             res.send(e.message)
         }
@@ -67,7 +71,8 @@ class AdminController {
     static async editProduct(req, res) {
         try {
             const product = await Product.findByPk(req.params.id)
-            res.render("/admin/template", { body: "form", title: "Edit Product", product })
+            const categories = await Category.findAll()
+            res.render("admin/template", { body: "form", title: "Edit Product", product, categories })
         } catch (e) {
             res.send(e.message)
         }
@@ -76,7 +81,7 @@ class AdminController {
     static async updateProduct(req, res) {
         try {
             const products = await Product.findAll()
-            res.render("/admin/template", { body: "products", title: "List Products", products })
+            res.render("admin/template", { body: "products", title: "List Products", products, categories })
         } catch (e) {
             res.send(e.message)
         }
@@ -85,7 +90,7 @@ class AdminController {
     static async deleteProduct(req, res) {
         try {
             const products = await Product.findAll()
-            res.render("/admin/template", { body: "products", title: "List Products", products })
+            res.render("admin/template", { body: "products", title: "List Products", products, categories })
         } catch (e) {
             res.send(e.message)
         }
