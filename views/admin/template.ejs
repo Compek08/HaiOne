@@ -11,12 +11,12 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">Compekiah Compek</h3>
+                            <h3 class="mb-0"><%= title %></h3>
                         </div>
                     </div>
                 </div>
             </div>
-            <%- include('./main/index') %>
+            <%- include(`./main/${ body }`) %>
         </main>
         <%- include('./partial/footer') %>
     </div>

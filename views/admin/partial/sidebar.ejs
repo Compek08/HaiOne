@@ -1,15 +1,21 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
         <a href="/admin" class="brand-link">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1lbzhLz35SGgIzMCaX5WmNzWjZ_m0kPpeg&s" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" />
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1lbzhLz35SGgIzMCaX5WmNzWjZ_m0kPpeg&s" alt="HaiOne Logo" class="brand-image opacity-75 shadow" />
             <span class="brand-text fw-light">HaiOne Shop</span>
         </a>
     </div>
     <div class="sidebar-wrapper">
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
+                <li id="menu-dashboard" class="nav-item">
+                    <a href="/admin" class="nav-link">
+                        <i class="nav-icon bi bi-speedometer"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li id="menu-category" class="nav-item">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-bookmarks-fill"></i>
                         <p>
                             Categories
@@ -18,20 +24,43 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/admin/categories" class="nav-link active">
+                        <!-- <li class="nav-item">
+                            <a href="/admin/categories" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>All Category</p>
+                                <p>All Categories</p>
                             </a>
-                        </li>
+                        </li> -->
                         <% categories.forEach(el => { %>
                         <li class="nav-item">
-                            <a href="/admin/categories/<%= el.id %>" class="nav-link active">
+                            <a href="/admin/categories/<%= el.id %>" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p><%= el.name %></p>
                             </a>
                         </li>
                         <% }) %>
+                    </ul>
+                </li>
+                <li id="menu-product" class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon bi bi-box-seam"></i>
+                        <p>
+                            Products
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/products" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>All Products</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/products/add" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Add New Product</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
