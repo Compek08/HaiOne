@@ -3,6 +3,7 @@ const {
   Transaction,
   Category,
   DetailTransaction,
+  User,
 } = require("../models");
 
 class WebController {
@@ -98,8 +99,16 @@ class WebController {
     try {
       const { id } = req.params;
       let transaction = await DetailTransaction.findByPk(id, {
-        include: Transaction,
+        include: [
+          {
+            model: Transaction,
+            include: User, // Menambahkan User dari Transaction
+          },
+          Product, // Menambahkan Product langsung
+        ],
       });
+
+      // res.send(transaction);
 
       res.render("customer/template", {
         body: "detailTransaction",
