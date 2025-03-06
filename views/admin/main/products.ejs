@@ -1,0 +1,32 @@
+<div class="app-content">
+    <div class="container-fluid px-5">
+        <table id="table" class="table">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Category</th>
+                    <th class="col-2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(el => { %>
+                <tr>
+                    <td><%= el.name %></td>
+                    <td><%= el.description %></td>
+                    <td><%= el.price %></td>
+                    <td><%= el.stock %></td>
+                    <td><%= products.name %></td>
+                    <td>
+                        <a class="btn btn-primary btn-sm " href="/admin/products/<%= el.id %>" role="button">Detail</a>
+                        <a class="btn btn-warning btn-sm " href="/admin/products/<%= el.id %>/edit" role="button">Edit</a>
+                        <a class="btn btn-danger btn-sm " href="/admin/products/<%= el.id %>/delete" role="button">Delete</a>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
