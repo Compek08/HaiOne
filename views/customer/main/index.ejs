@@ -1,4 +1,14 @@
 <h2 class="mb-4">Categories</h2>
+<form action="/" method="GET" class="mb-4">
+  <input
+    type="text"
+    name="search"
+    class="form-control"
+    placeholder="Search product..."
+    value="<%= search || '' %>"
+  />
+  <button type="submit" class="btn btn-primary mt-2">Search</button>
+</form>
         <div class="d-flex flex-wrap gap-2">
           <% category.forEach(cat => { %>
           <a href="/category/<%= cat.id %>" class="btn btn-primary">
@@ -23,9 +33,9 @@
               />
               <div class="card-body">
                 <!-- Nama Kategori dan Produk -->
-                <h5 class="card-title">
-                  <%= cat.name %> - <%= product.name %>
-                </h5>
+                  <h5 class="card-title">
+                    <%= product.fullName %>
+                  </h5>
                 <!-- Harga Produk -->
                 <p class="card-text"><%= product.priceRupiah %></p>
                 <!-- Tombol See Details -->

@@ -6,7 +6,10 @@
     </div>
     <div class="text-end mt-4">
       <h4>Total: <span id="total-price">Rp 0</span></h4>
-      <a href="/checkout" class="btn btn-success btn-lg">Checkout</a>
+      <form id="checkout-form" action="/checkout" method="POST">
+        <input type="hidden" name="cart" id="cart-data" />
+        <button type="submit" class="btn btn-success btn-lg">Checkout</button>
+      </form>
     </div>
   </div>
 </section>
@@ -51,4 +54,34 @@
       });
     });
   });
+</script>
+
+<script>
+  document
+    .getElementById("checkout-form")
+    .addEventListener("submit", function (event) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      document.getElementById("cart-data").value = JSON.stringify(cart);
+      localStorage.removeItem("cart"); // Hapus cart setelah checkout
+    });
+</script>
+<script>
+  document
+    .getElementById("checkout-btn")
+    .addEventListener("click", function () {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      fetch("/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cart }),
+      })
+        .then((response) => response.text())
+        .then((message) => {
+          alert(message);
+          localStorage.removeItem("cart"); // Hapus cart setelah checkout
+          window.location.href = "/transactions"; // Redirect ke halaman transaksi
+        })
+        .catch((error) => console.error("Checkout error:", error));
+    });
 </script>

@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     get priceRupiah() {
       return formatRupiah(this.price);
     }
+    get fullName() {
+      return this.Category ? `${this.Category.name} - ${this.name}` : this.name;
+    }
   }
   Product.init(
     {

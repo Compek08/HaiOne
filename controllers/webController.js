@@ -5,19 +5,30 @@ const {
   DetailTransaction,
   User,
 } = require("../models");
+const { Op } = require("sequelize");
 
 class WebController {
-  static async home(_, res) {
+  static async home(req, res) {
     try {
-      let category = await Category.findAll({ include: Product });
+      const { search } = req.query;
+      let category = await Category.findAll({
+        include: {
+          model: Product,
+          include: Category,
+          where: search ? { name: { [Op.iLike]: `%${search}%` } } : {},
+        },
+      });
+
       res.render("customer/template", {
         category,
         body: "index",
+        search,
       });
     } catch (error) {
       res.send(error);
     }
   }
+
   static async login(_, res) {
     try {
       res.render("customer/template", { body: "login" });
@@ -102,13 +113,11 @@ class WebController {
         include: [
           {
             model: Transaction,
-            include: User, // Menambahkan User dari Transaction
+            include: User,
           },
-          Product, // Menambahkan Product langsung
+          Product,
         ],
       });
-
-      // res.send(transaction);
 
       res.render("customer/template", {
         body: "detailTransaction",
@@ -116,6 +125,49 @@ class WebController {
       });
     } catch (error) {
       res.send(error);
+    }
+  }
+
+  static async checkout(req, res) {
+    try {
+      console.log("Session User ID:", req.session.userId);
+      const userId = req.session.userId;
+
+      if (!userId) {
+        return res.status(400).send("User not logged in.");
+      }
+
+      const cart = JSON.parse(req.body.cart);
+      if (!cart || cart.length === 0) {
+        return res.status(400).send("Cart is empty");
+      }
+
+      const newTransaction = await Transaction.create({
+        status: "pending",
+        UserId: userId,
+      });
+
+      const detailPromises = cart.map(async (item) => {
+        const product = await Product.findByPk(item.id);
+        if (product.stock < item.quantity) {
+          throw new Error(`Stock not enough for ${product.name}`);
+        }
+        await product.update({ stock: product.stock - item.quantity });
+
+        return DetailTransaction.create({
+          TransactionId: newTransaction.id,
+          ProductId: item.id,
+          quantity: item.quantity,
+        });
+      });
+
+      await Promise.all(detailPromises);
+
+      res.redirect(`/transaction/${newTransaction.id}`);
+    } catch (error) {
+      console.error(error);
+      ing;
+      res.status(500).send(error.message);
     }
   }
 }
