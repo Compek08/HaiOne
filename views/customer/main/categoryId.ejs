@@ -29,7 +29,16 @@
               <a href="/product/<%= product.id %>" class="btn btn-primary"
                 >See Details</a
               >
-              <a href="#" class="btn btn-success">Add to Cart</a>
+              <a
+                href="#"
+                class="btn btn-success add-to-cart"
+                data-id="<%= product.id %>"
+                data-name="<%= product.name %>"
+                data-price="<%= product.price %>"
+                data-image="<%= product.image %>"
+              >
+                Add to Cart
+              </a>
             </div>
           </div>
         </div>
@@ -38,41 +47,29 @@
     </div>
   </div>
 </section>
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const addToCartButtons = document.querySelectorAll(".add-to-cart");
+    const buttons = document.querySelectorAll(".add-to-cart");
 
-    addToCartButtons.forEach((button) => {
-      button.addEventListener("click", function () {
-        const productId = button.getAttribute("data-product-id");
-        const productName = button.getAttribute("data-product-name");
-        const productPrice = button.getAttribute("data-product-price");
-        const productImage = button.getAttribute("data-product-image");
+    buttons.forEach((button) => {
+      button.addEventListener("click", function (event) {
+        event.preventDefault(); // Mencegah reload halaman
+        const product = {
+          id: this.getAttribute("data-id"),
+          name: this.getAttribute("data-name"),
+          price: this.getAttribute("data-price"),
+          image: this.getAttribute("data-image"),
+        };
 
-        // Ambil cart dari localStorage
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        // Cek apakah produk sudah ada di cart
-        const existingProduct = cart.find((item) => item.id === productId);
-
-        if (existingProduct) {
-          // Jika produk sudah ada, tambahkan quantity
-          existingProduct.quantity += 1;
-        } else {
-          // Jika produk belum ada, tambahkan ke cart
-          cart.push({
-            id: productId,
-            name: productName,
-            price: productPrice,
-            image: productImage,
-            quantity: 1,
-          });
+        if (!cart.some((item) => item.id === product.id)) {
+          cart.push(product);
         }
 
-        // Simpan cart ke localStorage
         localStorage.setItem("cart", JSON.stringify(cart));
-
-        alert("Product added to cart!");
+        alert("Added to cart!");
       });
     });
   });

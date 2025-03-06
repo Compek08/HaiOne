@@ -13,60 +13,40 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const cartItemsContainer = document.getElementById("cart-items");
-    const totalPriceElement = document.getElementById("total-price");
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+      return;
+    }
 
     let totalPrice = 0;
 
-    // Tampilkan item cart
-    cart.forEach((item) => {
-      const itemTotal = item.price * item.quantity;
-      totalPrice += itemTotal;
-
-      const itemHtml = `
-            <div class="col-md-4 mb-4">
-              <div class="card">
-                <img src="${item.image}" class="card-img-top" alt="${
-        item.name
-      }" style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                  <h5 class="card-title">${item.name}</h5>
-                  <p class="card-text">${new Intl.NumberFormat("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  }).format(item.price)}</p>
-                  <p class="card-text">Quantity: ${item.quantity}</p>
-                  <button class="btn btn-danger remove-from-cart" data-product-id="${
-                    item.id
-                  }">Remove</button>
-                </div>
-              </div>
+    cart.forEach((product) => {
+      cartItemsContainer.innerHTML += `
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="${product.image}" class="card-img-top" alt="${product.name}" style="height: 150px; object-fit: cover;">
+            <div class="card-body">
+              <h5 class="card-title">${product.name}</h5>
+              <p class="card-text">Rp ${product.price}</p>
+              <button class="btn btn-danger remove-from-cart" data-id="${product.id}">Remove</button>
             </div>
-          `;
-
-      cartItemsContainer.innerHTML += itemHtml;
+          </div>
+        </div>
+      `;
+      totalPrice += parseFloat(product.price);
     });
 
-    // Tampilkan total harga
-    totalPriceElement.textContent = new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(totalPrice);
+    document.getElementById("total-price").innerText = `Rp ${totalPrice}`;
 
-    // Tambahkan event listener untuk tombol "Remove"
-    const removeButtons = document.querySelectorAll(".remove-from-cart");
-    removeButtons.forEach((button) => {
+    // Hapus item dari cart
+    document.querySelectorAll(".remove-from-cart").forEach((button) => {
       button.addEventListener("click", function () {
-        const productId = button.getAttribute("data-product-id");
-
-        // Hapus produk dari cart
-        const updatedCart = cart.filter((item) => item.id !== productId);
-
-        // Simpan cart yang sudah diupdate ke localStorage
+        let id = this.getAttribute("data-id");
+        let updatedCart = cart.filter((item) => item.id !== id);
         localStorage.setItem("cart", JSON.stringify(updatedCart));
-
-        // Reload halaman untuk menampilkan cart yang sudah diupdate
         location.reload();
       });
     });

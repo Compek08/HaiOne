@@ -1,4 +1,9 @@
-const { Product, Transaction, Category } = require("../models");
+const {
+  Product,
+  Transaction,
+  Category,
+  DetailTransaction,
+} = require("../models");
 
 class WebController {
   static async home(_, res) {
@@ -68,7 +73,38 @@ class WebController {
 
   static async showCart(_, res) {
     try {
-      res.render("customer/cart", { body: "cart" });
+      res.render("customer/template", { body: "cart" });
+    } catch (error) {
+      res.send(error);
+    }
+  }
+
+  static async transaction(req, res) {
+    try {
+      let transactions = await DetailTransaction.findAll({
+        include: Transaction,
+      });
+
+      res.render("customer/template", {
+        body: "transaction",
+        transactions,
+      });
+    } catch (error) {
+      res.send(error);
+    }
+  }
+
+  static async detailTransaction(req, res) {
+    try {
+      const { id } = req.params;
+      let transaction = await DetailTransaction.findByPk(id, {
+        include: Transaction,
+      });
+
+      res.render("customer/template", {
+        body: "detailTransaction",
+        transaction,
+      });
     } catch (error) {
       res.send(error);
     }

@@ -1,0 +1,32 @@
+<section class="py-5">
+  <div class="container py-5">
+    <h2 class="mb-4">Transaction Details</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Product ID</th>
+          <th>Quantity</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% transaction.forEach(detail => { %>
+        <tr>
+          <td><%= detail.ProductId %></td>
+          <td><%= detail.quantity %></td>
+          <td><%= new Date(detail.createdAt).toLocaleDateString() %></td>
+          <td>
+            <span
+              class="badge bg-<%= detail.Transaction.status === 'paid' ? 'success' : 'warning' %>"
+            >
+              <%= detail.Transaction.status %>
+            </span>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <a href="/transactions" class="btn btn-secondary">Back to Transactions</a>
+  </div>
+</section>

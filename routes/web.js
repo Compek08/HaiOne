@@ -18,6 +18,12 @@ router.get("/category", isAuthenticated, WebController.category);
 router.get("/category/:id", isAuthenticated, WebController.categoryId);
 router.get("/product/:id", isAuthenticated, WebController.productId);
 router.get("/cart", isAuthenticated, WebController.showCart);
+router.get("/transaction", isAuthenticated, WebController.transaction);
+router.get(
+  "/transaction/:id",
+  isAuthenticated,
+  WebController.detailTransaction
+);
 
 router.get("/cart", isAuthenticated, (req, res) => {
   res.render("customer/cart");
