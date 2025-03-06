@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const User = require("../models/user"); // Import model user
+const { User } = require("../models"); // Import model user
 
 // REGISTER
 const register = async (req, res) => {
@@ -21,12 +21,12 @@ const register = async (req, res) => {
 };
 
 // LOGIN
-const login = (req, res) => {
+const login = async (req, res) => {
   try {
     const { username, password } = req.body;
 
     // Cari user berdasarkan username
-    const user = User.find((u) => u.username === username);
+    const user = await User.findOne({ where: { username } });
     if (!user) return res.status(400).json({ error: "User not found" });
 
     // Bandingkan password
@@ -35,7 +35,7 @@ const login = (req, res) => {
 
     // Simpan session
     req.session.user = { username: user.username };
-    res.json({ message: "Login successful" });
+    res.redirect("/home");
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
