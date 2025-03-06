@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark" lang="en">
+
+<head>
+    <%- include('./partial/head') %>
+</head>
+
+<body>
+    <%- include('./partial/nav') %>
+    <section class="py-5">
+        <div class="container py-5">
+            <%- include(`./main/${ body }`) %>
+        </div>
+    </section>
+    <footer class="bg-dark">
+        <%- include('./partial/footer') %>
+    </footer>
+    <%- include('./partial/script') %>
+</body>
+
+</html>
