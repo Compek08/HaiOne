@@ -22,6 +22,7 @@ const register = async (req, res) => {
 
 // LOGIN
 const login = async (req, res) => {
+<<<<<<< HEAD
   try {
     const { username, password } = req.body;
 
@@ -39,6 +40,25 @@ const login = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
+=======
+    try {
+        const { username, password } = req.body;
+
+        // Cari user berdasarkan username
+        const user = await User.findOne({ where: { username } });
+        if (!user) return res.status(400).json({ error: "User not found" });
+
+        // Bandingkan password
+        const isMatch = bcrypt.compareSync(password, user.password);
+        if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
+
+        // Simpan session
+        req.session.user = user;
+        res.redirect(`/${ user.role === "admin" ? "admin" : "" }`);
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+>>>>>>> Haikal
 };
 
 // LOGOUT

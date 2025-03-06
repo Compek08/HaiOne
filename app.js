@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const router = require("./routes");
+const { attachUser } = require("./middlewares/authMiddleware");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,10 +14,11 @@ app.use(
     session({
         secret: process.env.SESSION_SECRET || "secret-key",
         resave: false,
-        saveUninitialized: true,
-        cookie: { secure: false },
+        saveUninitialized: false,
+        cookie: { secure: false, sameSite: true },
     })
 );
+app.use(attachUser)
 
 app.use("/", router);
 

@@ -3,7 +3,26 @@ const { Product, Category } = require("../models")
 class AdminController {
     static async index(_, res) {
         try {
-            res.render("/admin/template", { body: "index", title: "Dashboard" })
+            const categories = await Category.findAll({ include: Product })
+            res.render("admin/template", { body: "index", title: "Dashboard", categories })
+        } catch (e) {
+            res.send(e.message)
+        }
+    }
+
+    static async categories(_, res) {
+        try {
+            const products = await Product.findAll()
+            res.render("/admin/template", { body: "products", title: "List Products", products })
+        } catch (e) {
+            res.send(e.message)
+        }
+    }
+
+    static async showCategory(req, res) {
+        try {
+            const products = await Product.findAll()
+            res.render("/admin/template", { body: "products", title: "List Products", products })
         } catch (e) {
             res.send(e.message)
         }
