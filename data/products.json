@@ -5,7 +5,8 @@
     "description": "Maine Coon adalah ras kucing besar dengan bulu lebat, ekor panjang berbulu tebal, dan telinga berujung runcing. Mereka dikenal ramah, cerdas, serta memiliki sifat sosial yang lembut, menjadikannya kucing peliharaan yang ideal. 🐱✨",
     "price": 600000,
     "stock": 5,
-    "CategoryId": 1
+    "CategoryId": 1,
+    "image": "https://www.purina.co.id/sites/default/files/2021-02/CAT%20HERO_0012_Maine_coon.jpg"
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "description": "Pudel adalah anjing cerdas dan elegan dengan bulu keriting yang tidak mudah rontok. Mereka aktif, mudah dilatih, dan sangat setia kepada pemiliknya. Pudel hadir dalam berbagai ukuran, dari standar hingga mini dan toy. 🐩✨",
     "price": 700000,
     "stock": 5,
-    "CategoryId": 2
+    "CategoryId": 2,
+    "image": "https://www.ruparupa.com/blog/wp-content/uploads/2021/10/steven-van-elk-1OnbCf7AOdY-unsplash.jpg"
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "description": "Long-tailed chinchilla (Chinchilla lanigera) adalah hewan pengerat kecil berbulu sangat lembut dengan ekor panjang berbulu tebal. Berasal dari pegunungan Andes, mereka lincah, aktif di malam hari, dan dikenal karena kemampuan melompat yang tinggi. 🐹✨",
     "price": 10000000,
     "stock": 5,
-    "CategoryId": 3
+    "CategoryId": 3,
+    "image": "https://www.bigjigstoys.co.uk/cdn/shop/products/httpswww.bigjigstoys.comimages3p88722_460x@2x.jpg?v=1651684365"
   },
   {
     "id": 4,
@@ -29,6 +32,7 @@
     "description": "Winter White Hamster adalah hamster kecil yang dikenal karena bulunya yang bisa berubah warna menjadi putih saat musim dingin. Mereka memiliki tubuh gemuk, ekor pendek, dan sifat ramah serta aktif. Hamster ini cocok sebagai hewan peliharaan karena perawatannya yang mudah. 🐹❄️",
     "price": 50000,
     "stock": 5,
-    "CategoryId": 4
+    "CategoryId": 4,
+    "image": "https://s7d2.scene7.com/is/image/PetSmart/5081325?fmt=webp&wid=400&hei=400"
   }
 ]
