@@ -12,15 +12,16 @@
         </tr>
       </thead>
       <tbody>
-        <% transactions.forEach(transaction => { %> <% if
-        (transaction.Transaction.status === "paid") { %>
+        <% transactions.forEach(transaction => { %>
         <tr>
           <td><%= transaction.Transaction.id %></td>
           <td><%= transaction.quantity %></td>
           <td>
-            <span class="badge bg-success"
-              ><%= transaction.Transaction.status %></span
+            <span
+              class="badge bg-<%= transaction.Transaction.status === 'paid' ? 'success' : 'warning' %>"
             >
+              <%= transaction.Transaction.status %>
+            </span>
           </td>
           <td>
             <%= new Date(transaction.Transaction.createdAt).toLocaleDateString()
@@ -28,13 +29,13 @@
           </td>
           <td>
             <a
-              href="/transaction/<%= transaction.id %>"
+              href="/transaction/<%= transaction.Transaction.id %>"
               class="btn btn-primary btn-sm"
               >See Details</a
             >
           </td>
         </tr>
-        <% } %> <% }) %>
+        <% }) %>
       </tbody>
     </table>
   </div>
