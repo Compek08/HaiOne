@@ -4,19 +4,18 @@ const { User } = require("../models"); // Import model user
 // REGISTER
 const register = async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, password, email } = req.body;
 
         // Hash password sebelum disimpan ke database
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(password, salt);
 
-        // Simpan user ke database (simulasi)
-        const newUser = { username, password: hashedPassword };
-        User.push(newUser); // Simpan ke array sebagai simulasi DB
-
-        res.status(201).json({ message: "User registered successfully" });
+        const newUser = { username, email, password: hashedPassword };
+        let user = await User.create(newUser); // Simpan ke array sebagai simulasi DB
+        res.session.user = user
+        res.redirect("/");
     } catch (error) {
-        res.status(500).json({ error: "Internal Server Error" });
+        res.redirect("/register");
     }
 };
 

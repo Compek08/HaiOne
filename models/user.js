@@ -49,15 +49,6 @@ module.exports = (sequelize, DataTypes) => {
             },
             role: {
                 type: DataTypes.STRING,
-                allowNull: false,
-                validate: {
-                    notNull: { msg: "Role is required" },
-                    notEmpty: { msg: "Role cannot be empty" },
-                    isIn: {
-                        args: [["user", "admin"]],
-                        msg: "Role must be either 'user' or 'admin'",
-                    },
-                },
             },
         },
         {
@@ -65,12 +56,19 @@ module.exports = (sequelize, DataTypes) => {
             modelName: "User",
             hooks: {
                 beforeCreate: (user) => {
+                    user.role = "customer"
                     const salt = bcrypt.genSaltSync(10);
                     user.password = bcrypt.hashSync(user.password, salt);
                 },
             },
         }
     );
+
+    User.beforeCreate = (user) => {
+        console.log(user);
+
+        user.role = "user"
+    }
 
     return User;
 };
