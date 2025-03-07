@@ -132,10 +132,6 @@ class WebController {
     try {
       const cart = JSON.parse(req.body.cart || "[]"); // Pastikan cart tidak undefined
 
-      if (cart.length === 0) {
-        return res.send("Cart is empty");
-      }
-
       console.log("Cart Data Received:", cart); // Debugging: cek apakah data masuk
 
       res.send("Checkout successful");
