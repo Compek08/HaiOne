@@ -57,18 +57,27 @@
 </script>
 
 <script>
-  document
-    .getElementById("checkout-form")
-    .addEventListener("submit", function (event) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      document.getElementById("cart-data").value = JSON.stringify(cart);
-      localStorage.removeItem("cart"); // Hapus cart setelah checkout
-    });
+  document.addEventListener("DOMContentLoaded", function () {
+    let cartData = localStorage.getItem("cart");
+
+    // Pastikan cart tidak kosong dan dalam format JSON yang benar
+    let cart =
+      cartData && cartData !== "Cart is empty" ? JSON.parse(cartData) : [];
+
+    if (cart.length === 0) {
+      alert("Cart is empty");
+      return;
+    }
+
+    document.getElementById("cart-data").value = JSON.stringify(cart);
+  });
 </script>
+
 <script>
   document
-    .getElementById("checkout-btn")
-    .addEventListener("click", function () {
+    .getElementById("checkout-form")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
       fetch("/checkout", {
@@ -76,12 +85,14 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ cart }),
       })
-        .then((response) => response.text())
-        .then((message) => {
-          alert(message);
-          localStorage.removeItem("cart"); // Hapus cart setelah checkout
-          window.location.href = "/transactions"; // Redirect ke halaman transaksi
+        .then((response) => response.json())
+        .then((data) => {
+          alert(data.message);
+          if (data.message === "Checkout successful") {
+            localStorage.removeItem("cart"); // Hapus cart setelah checkout berhasil
+            window.location.href = "/transaction"; // Redirect ke halaman transaksi
+          }
         })
-        .catch((error) => console.error("Checkout error:", error));
+        .catch((error) => console.error("Error:", error));
     });
 </script>

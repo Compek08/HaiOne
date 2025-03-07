@@ -130,44 +130,17 @@ class WebController {
 
   static async checkout(req, res) {
     try {
-      console.log("Session User ID:", req.session.userId);
-      const userId = req.session.userId;
+      const cart = JSON.parse(req.body.cart || "[]"); // Pastikan cart tidak undefined
 
-      if (!userId) {
-        return res.status(400).send("User not logged in.");
+      if (cart.length === 0) {
+        return res.send("Cart is empty");
       }
 
-      const cart = JSON.parse(req.body.cart);
-      if (!cart || cart.length === 0) {
-        return res.status(400).send("Cart is empty");
-      }
+      console.log("Cart Data Received:", cart); // Debugging: cek apakah data masuk
 
-      const newTransaction = await Transaction.create({
-        status: "pending",
-        UserId: userId,
-      });
-
-      const detailPromises = cart.map(async (item) => {
-        const product = await Product.findByPk(item.id);
-        if (product.stock < item.quantity) {
-          throw new Error(`Stock not enough for ${product.name}`);
-        }
-        await product.update({ stock: product.stock - item.quantity });
-
-        return DetailTransaction.create({
-          TransactionId: newTransaction.id,
-          ProductId: item.id,
-          quantity: item.quantity,
-        });
-      });
-
-      await Promise.all(detailPromises);
-
-      res.redirect(`/transaction/${newTransaction.id}`);
+      res.send("Checkout successful");
     } catch (error) {
-      console.error(error);
-      ing;
-      res.status(500).send(error.message);
+      res.send(error);
     }
   }
 }

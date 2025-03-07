@@ -24,14 +24,11 @@ router.get(
   isAuthenticated,
   WebController.detailTransaction
 );
-router.post("/checkout", isAuthenticated, WebController.checkout);
-router.get("/check-session", (req, res) => {
-  res.json({ session: req.session });
-});
 
 router.get("/cart", isAuthenticated, (req, res) => {
   res.render("customer/cart");
 });
+router.post("/checkout", isAuthenticated, WebController.checkout);
 
 router.get("/profile", (req, res) => {
   res.json({ message: "You are logged in", user: req.session.user });
