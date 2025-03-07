@@ -1,0 +1,55 @@
+<div class="container py-5">
+  <h2 class="mb-4">Transaction Details</h2>
+
+  <div class="card shadow-sm p-4">
+    <h4 class="mb-3">User Information</h4>
+    <p>
+      <strong>Username:</strong> <%= transaction.Transaction.User.username %>
+    </p>
+    <p><strong>Email:</strong> <%= transaction.Transaction.User.email %></p>
+  </div>
+
+  <div class="card shadow-sm p-4 mt-4">
+    <h4 class="mb-3">Product Information</h4>
+    <div class="row">
+      <div class="col-md-4">
+        <img
+          src="<%= transaction.Product.image %>"
+          class="img-fluid rounded"
+          alt="<%= transaction.Product.name %>"
+        />
+      </div>
+      <div class="col-md-8">
+        <h5><%= transaction.Product.name %></h5>
+        <p><%= transaction.Product.description %></p>
+        <p>
+          <strong>Price:</strong> Rp <%=
+          transaction.Product.price.toLocaleString() %>
+        </p>
+        <p><strong>Stock:</strong> <%= transaction.Product.stock %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm p-4 mt-4">
+    <h4 class="mb-3">Transaction Summary</h4>
+    <p><strong>Transaction ID:</strong> <%= transaction.TransactionId %></p>
+    <p><strong>Quantity:</strong> <%= transaction.quantity %></p>
+    <p>
+      <strong>Status:</strong>
+      <% if (transaction.Transaction.status === 'paid') { %>
+      <span class="badge bg-success">Paid</span>
+      <% } else { %>
+      <span class="badge bg-warning text-dark">Pending</span>
+      <% } %>
+    </p>
+    <p>
+      <strong>Date:</strong> <%= new
+      Date(transaction.createdAt).toLocaleDateString('id-ID') %>
+    </p>
+  </div>
+
+  <div class="mt-4">
+    <a href="/transaction" class="btn btn-secondary">Back to Transactions</a>
+  </div>
+</div>

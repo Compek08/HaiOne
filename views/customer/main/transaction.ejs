@@ -1,0 +1,42 @@
+<section class="py-5">
+  <div class="container py-5">
+    <h2 class="mb-4">Past Transactions</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Quantity</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% transactions.forEach(transaction => { %>
+        <tr>
+          <td><%= transaction.Transaction.id %></td>
+          <td><%= transaction.quantity %></td>
+          <td>
+            <span
+              class="badge bg-<%= transaction.Transaction.status === 'paid' ? 'success' : 'warning' %>"
+            >
+              <%= transaction.Transaction.status %>
+            </span>
+          </td>
+          <td>
+            <%= new Date(transaction.Transaction.createdAt).toLocaleDateString()
+            %>
+          </td>
+          <td>
+            <a
+              href="/transaction/<%= transaction.Transaction.id %>"
+              class="btn btn-primary btn-sm"
+              >See Details</a
+            >
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>

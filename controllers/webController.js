@@ -1,19 +1,34 @@
-const { Product, Transaction, Category } = require("../models");
-const { formatRupiah } = require("../helpers/helper");
+const {
+    Product,
+    Transaction,
+    Category,
+    DetailTransaction,
+    User,
+} = require("../models");
+const { Op } = require("sequelize");
 
 class WebController {
-    static async home(_, res) {
+    static async home(req, res) {
         try {
-            let category = await Category.findAll({ include: Product });
+            const { search } = req.query;
+            let category = await Category.findAll({
+                include: {
+                    model: Product,
+                    include: Category,
+                    where: search ? { name: { [Op.iLike]: `%${ search }%` } } : {},
+                },
+            });
+
             res.render("customer/template", {
                 category,
                 body: "index",
-                formatRupiah,
+                search,
             });
         } catch (error) {
             res.send(error);
         }
     }
+
     static async login(_, res) {
         try {
             res.render("customer/template", { body: "login" });
@@ -33,7 +48,6 @@ class WebController {
     static async category(_, res) {
         try {
             let category = await Category.findAll();
-            //   res.send(category);
             res.render("customer/template", {
                 category,
                 body: "category",
@@ -56,29 +70,71 @@ class WebController {
         }
     }
 
-    static async productId(_, res) {
+    static async productId(req, res) {
         try {
+            const { id } = req.params;
+            let product = await Product.findByPk(id, { include: Category });
+            res.render("customer/template", {
+                product,
+                body: "product",
+            });
         } catch (error) {
             res.send(error);
         }
     }
 
-    static async addCart(_, res) {
+    static async showCart(_, res) {
         try {
+            res.render("customer/template", { body: "cart" });
         } catch (error) {
             res.send(error);
         }
     }
 
-    static async handlerAddCart(_, res) {
+    static async transaction(req, res) {
         try {
+            let transactions = await DetailTransaction.findAll({
+                include: Transaction,
+            });
+
+            res.render("customer/template", {
+                body: "transaction",
+                transactions,
+            });
         } catch (error) {
             res.send(error);
         }
     }
 
-    static async deleteCart(_, res) {
+    static async detailTransaction(req, res) {
         try {
+            const { id } = req.params;
+            let transaction = await DetailTransaction.findByPk(id, {
+                include: [
+                    {
+                        model: Transaction,
+                        include: User,
+                    },
+                    Product,
+                ],
+            });
+
+            res.render("customer/template", {
+                body: "detailTransaction",
+                transaction,
+            });
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async checkout(req, res) {
+        try {
+            const cart = JSON.parse(req.body.cart || "[]"); // Pastikan cart tidak undefined
+
+            console.log("Cart Data Received:", cart); // Debugging: cek apakah data masuk
+
+            res.send("Checkout successful");
         } catch (error) {
             res.send(error);
         }

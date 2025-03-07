@@ -13,14 +13,22 @@ router.get("/category", WebController.category);
 
 router.use(isAuthenticated);
 
-router.get("/home", isAuthenticated, WebController.home);
+router.get("/", isAuthenticated, WebController.home);
 router.get("/category", isAuthenticated, WebController.category);
 router.get("/category/:id", isAuthenticated, WebController.categoryId);
 router.get("/product/:id", isAuthenticated, WebController.productId);
-router.get("/product/:id/cart", isAuthenticated, WebController.addCart);
-router.post("/product/:id/cart", isAuthenticated, WebController.handlerAddCart);
-router.get("/cart", isAuthenticated, WebController.productId);
-router.get("/cart/:id/delete", isAuthenticated, WebController.deleteCart);
+router.get("/cart", isAuthenticated, WebController.showCart);
+router.get("/transaction", isAuthenticated, WebController.transaction);
+router.get(
+  "/transaction/:id",
+  isAuthenticated,
+  WebController.detailTransaction
+);
+
+router.get("/cart", isAuthenticated, (req, res) => {
+  res.render("customer/cart");
+});
+router.post("/checkout", isAuthenticated, WebController.checkout);
 
 router.get("/profile", (req, res) => {
     res.json({ message: "You are logged in", user: req.session.user });

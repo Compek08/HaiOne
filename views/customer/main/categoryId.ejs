@@ -1,0 +1,76 @@
+<section class="py-5">
+  <div class="container py-5">
+    <!-- Judul Kategori -->
+    <div class="text-center mb-5">
+      <h1 class="fw-bold"><%= category.name %></h1>
+      <p class="lead"><%= category.description %></p>
+    </div>
+
+    <!-- Daftar Produk -->
+    <h2 class="mb-4">Products</h2>
+    <div class="row">
+      <% category.Products.forEach(product => { %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <!-- Gambar Produk -->
+          <img
+            src="<%= product.image %>"
+            class="card-img-top"
+            alt="<%= product.name %>"
+            style="height: 200px; object-fit: cover"
+          />
+          <div class="card-body">
+            <!-- Nama Produk -->
+            <h5 class="card-title"><%= product.name %></h5>
+            <!-- Harga Produk -->
+            <p class="card-text"><%= product.priceRupiah %></p>
+            <!-- Tombol See Details dan Add to Cart -->
+            <div class="d-flex justify-content-between">
+              <a href="/product/<%= product.id %>" class="btn btn-primary"
+                >See Details</a
+              >
+              <a
+                href="#"
+                class="btn btn-success add-to-cart"
+                data-id="<%= product.id %>"
+                data-name="<%= product.name %>"
+                data-price="<%= product.price %>"
+                data-image="<%= product.image %>"
+              >
+                Add to Cart
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll(".add-to-cart");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", function (event) {
+        event.preventDefault(); // Mencegah reload halaman
+        const product = {
+          id: this.getAttribute("data-id"),
+          name: this.getAttribute("data-name"),
+          price: this.getAttribute("data-price"),
+          image: this.getAttribute("data-image"),
+        };
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        if (!cart.some((item) => item.id === product.id)) {
+          cart.push(product);
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert("Added to cart!");
+      });
+    });
+  });
+</script>
