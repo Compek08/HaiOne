@@ -20,6 +20,19 @@ class AdminController {
         }
     }
 
+    static async updateProfile(req, res) {
+        try {
+            const { field, value } = req.body;
+            if (!field || value === undefined) {
+                return res.status(400).json({ error: "Invalid request data" });
+            }
+            const updatedProfile = await Profile.updateOneAttribute(req.user.id, field, value);
+            res.json({ success: true, profile: updatedProfile });
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
+    }
+
     static async showCategory(req, res) {
         try {
             const products = await Category.findByPk(req.params.id, { include: Product })

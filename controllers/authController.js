@@ -44,7 +44,8 @@ const login = async (req, res) => {
 // LOGOUT
 const logout = (req, res) => {
     req.session.destroy();
-    res.json({ message: "Logged out successfully" });
+    // req.flash("success", "See You Later");
+    res.redirect("/");
 };
 
 module.exports = { register, login, logout };

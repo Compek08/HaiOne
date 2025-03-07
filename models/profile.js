@@ -13,6 +13,20 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             this.belongsTo(models.User)
         }
+
+        static async updateOneAttribute(userId, field, value) {
+            try {
+                let profile = await Profile.findOne({ where: { UserId: userId } });
+                if (!profile) throw new Error("Profile not found");
+                profile[field] = value
+                await profile.save()
+                console.log(profile.changed());
+                // if (!profile.changed()) throw new Error("Failed Updating");
+                return profile;
+            } catch (error) {
+                throw new Error(error.message);
+            }
+        }
     }
     Profile.init({
         name: {

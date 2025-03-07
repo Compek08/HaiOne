@@ -23,8 +23,8 @@ router.get("/cart", isAuthenticated, WebController.productId);
 router.get("/cart/:id/delete", isAuthenticated, WebController.deleteCart);
 
 router.get("/profile", (req, res) => {
-  res.json({ message: "You are logged in", user: req.session.user });
+    res.json({ message: "You are logged in", user: req.session.user });
 });
-router.post("/logout", logout);
+router.get("/logout", logout);
 
 module.exports = router;

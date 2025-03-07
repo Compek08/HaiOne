@@ -3,6 +3,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@4.0.0-beta3/dist/js/adminlte.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
     const Default = {
@@ -174,3 +175,73 @@
         let table = new DataTable('#table');
     });
 </script>
+<% if (body === "profile") { %>
+<script>
+    $(document).on('ready change', function() {
+        $('.angka').on('input', function() {
+            $(this).val(this.value.replace(/[^0-9]/g, ''));
+        });
+    });
+
+    $(document).ready(() => {
+        $(".editable-label").on("dblclick", function() {
+            let input = $(this).next("input, textarea");
+            $(this).addClass("d-none");
+            input.removeClass("d-none").focus();
+            if (input.attr("type") === "password") {
+                input.val("");
+            }
+        });
+
+        $("input, textarea").on("blur", function() {
+            let label = $(this).prev(".editable-label");
+            let value = $(this).val().trim();
+            let oldValue = $(this).attr("data-old-value");
+            let fieldName = $(this).attr("name");
+            if (!value) {
+                value = oldValue;
+            }
+            let displayValue = fieldName === "password" ? "******" : value;
+            label.find(".label-text").text(displayValue);
+            $(this).addClass("d-none");
+            label.removeClass("d-none");
+
+            $.ajax({
+                url: "/admin/profile/update",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    field: fieldName,
+                    value: value
+                }),
+                success: (res) => {
+                    console.log(res);
+
+                    $(this).attr("data-old-value", value); // Simpan value baru jika berhasil
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: "Profile updated successfully!",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                },
+                error: (e) => {
+                    console.log(e, "E");
+
+                    $(this).val(oldValue);
+                    label.find(".label-text").text(fieldName === "password" ? "******" : oldValue);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Failed to update profile. Please try again!",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        });
+    });
+</script>
+<% } %>
