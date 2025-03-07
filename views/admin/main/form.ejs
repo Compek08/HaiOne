@@ -1,22 +1,30 @@
 <div class="app-content">
     <div class="container-fluid px-5">
-        <form id="form" class="form-floating" action="/memes/add" method="post">
+        <form id="form" class="form-floating" action="/admin/products/add" method="post">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="title" name="title" placeholder="Title">
-                <label for="title">Title</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="<%= !create ? product.name : "" %>">
+                <label for="name">Name</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" placeholder="Author" name="author" id="author">
-                <label for="author">Author</label>
+                <input type="text" class="form-control" placeholder="Description" name="description" id="description" value="<%= !create ? product.description : "" %>">
+                <label for="description">Description</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" placeholder="Image URL" id="imageUrl" name="imageUrl">
-                <label for="imageUrl">Image URL</label>
+                <input type="text" class="form-control" placeholder="Price" id="price" name="price" value="<%= !create ? product.price : "" %>">
+                <label for="price">Price</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" placeholder="Image" id="image" name="image" value="<%= !create ? product.image : "" %>">
+                <label for="image">Image</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" class="form-control angka" placeholder="stock" id="stock" name="stock" value="<%= !create ? product.stock : "" %>">
+                <label for="stock">Stock</label>
             </div>
             <div class="form-floating form-floating mb-3">
                 <select class="form-select" id="category" name="CategoryId" for="CategoryId">
                     <% categories.forEach(el => { %>
-                    <option value="<%= el.id %>"><%= `${ el.name } - ${ el.description }` %></option>
+                    <option value="<%= el.id %>" <%= !create && el.id === product.CategoryId ? "selected" : "" %>><%= `${ el.name } - ${ el.description }` %></option>
                     <% }) %>
                 </select>
                 <label for="category">Category</label>

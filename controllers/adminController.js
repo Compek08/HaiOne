@@ -56,7 +56,7 @@ class AdminController {
     static async addProduct(_, res) {
         try {
             const categories = await Category.findAll()
-            res.render("admin/template", { body: "form", title: "Add Product", categories })
+            res.render("admin/template", { body: "form", title: "Add Product", create: true, categories })
         } catch (e) {
             res.send(e.message)
         }
@@ -65,7 +65,7 @@ class AdminController {
     static async createProduct(req, res) {
         try {
             const product = await Product.create(req.body)
-            res.redirect("/admin/product/" + product.id)
+            res.redirect("/admin/products/" + product.id)
         } catch (e) {
             res.send(e.message)
         }
@@ -73,7 +73,7 @@ class AdminController {
 
     static async showProduct(req, res) {
         try {
-            const product = await Product.findByPk(req.params.id)
+            const product = await Product.findByPk(req.params.id, { include: Category })
             const categories = await Category.findAll()
             res.render("admin/template", { body: "product", title: product.name, product, categories })
         } catch (e) {
@@ -85,7 +85,7 @@ class AdminController {
         try {
             const product = await Product.findByPk(req.params.id)
             const categories = await Category.findAll()
-            res.render("admin/template", { body: "form", title: "Edit Product", product, categories })
+            res.render("admin/template", { body: "form", title: "Edit Product", create: false, product, categories })
         } catch (e) {
             res.send(e.message)
         }
@@ -93,8 +93,8 @@ class AdminController {
 
     static async updateProduct(req, res) {
         try {
-            const products = await Product.findAll()
-            res.render("admin/template", { body: "products", title: "List Products", products, categories })
+            const product = await Product.update(req.body, where = { id: req.params.id })
+            res.redirect(`/admin/products/${ product.id }`)
         } catch (e) {
             res.send(e.message)
         }
@@ -102,9 +102,12 @@ class AdminController {
 
     static async deleteProduct(req, res) {
         try {
-            const products = await Product.findAll()
-            res.render("admin/template", { body: "products", title: "List Products", products, categories })
+            let product = await Product.findByPk(req.params.id)
+            product.destroy()
+            res.redirect("/admin/products")
         } catch (e) {
+            console.log(e);
+
             res.send(e.message)
         }
     }
