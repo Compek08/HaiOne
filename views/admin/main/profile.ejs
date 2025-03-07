@@ -1,36 +1,59 @@
 <div class="app-content">
     <div class="container-fluid px-5">
-        <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" id="name" name="name" class="form-control" value="<%= profile.name %>" disabled readonly placeholder="Name">
-        </div>
-        <div class="mb-3">
-            <label for="phone" class="angka form-label">Phone</label>
-            <input type="number" id="phone" name="phone" class="form-control" value="<%= profile.phone %>" disabled readonly placeholder="Phone">
-        </div>
-        <div class="mb-3">
-            <label for="address" class="form-label">Adress</label>
-            <textarea class="form-control" id="address" rows="3" readonly disabled><%= profile.address %></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" id="username" name="username" class="form-control" value="<%= user.username %>" disabled readonly placeholder="Username">
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" name="email" class="form-control" value="<%= user.email %>" disabled readonly placeholder="Email">
-        </div>
-        <div class="mb-3 d-none">
-            <label for="oPassword" class="form-label">Old Password</label>
-            <input type="oPassword" id="oPassword" name="oPassword" class="form-control" value="" disabled readonly placeholder="Old Password">
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" name="password" class="form-control" value="" disabled readonly placeholder="Password">
-        </div>
-        <div class="mb-3 d-none">
-            <label for="vPassword" class="form-label">Verify Password</label>
-            <input type="vPassword" id="vPassword" name="vPassword" class="form-control" value="" disabled readonly placeholder="Verify Password">
+        <div class="card shadow-lg p-4">
+            <div class="mb-3">
+                <label for="name" class="form-label fw-bold">Name</label>
+                <label class="editable-label d-flex align-items-center" data-name="name">
+                    <span class="label-text"><%= profile.name %></span>
+                    <i class="fas fa-edit ms-2 text-muted edit-icon"></i>
+                </label>
+                <input type="text" id="name" name="name" class="form-control d-none" value="<%= profile.name %>" data-old-value="<%= profile.name %>">
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label fw-bold">Phone Number</label>
+                <label class="editable-label d-flex align-items-center" data-name="phone">
+                    <span class="label-text"><%= profile.phone %></span>
+                    <i class="fas fa-edit ms-2 text-muted edit-icon"></i>
+                </label>
+                <input type="text" id="phone" name="phone" class="form-control angka d-none" value="<%= profile.phone %>" data-old-value="<%= profile.phone %>">
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label fw-bold">Address</label>
+                <label class="editable-label d-flex align-items-center" data-name="address">
+                    <span class="label-text"><%= profile.address %></span>
+                    <i class="fas fa-edit ms-2 text-muted edit-icon"></i>
+                </label>
+                <textarea id="address" name="address" class="form-control d-none" data-old-value="<%= profile.address %>"><%= profile.address %></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="username" class="form-label fw-bold">Username</label>
+                <label class="editable-label d-flex align-items-center" data-name="username">
+                    <span class="label-text"><%= user.username %></span>
+                    <i class="fas fa-edit ms-2 text-muted edit-icon"></i>
+                </label>
+                <input type="text" id="username" name="username" class="form-control d-none" value="<%= user.username %>" data-old-value="<%= user.username %>">
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label fw-bold">Email</label>
+                <label class="editable-label d-flex align-items-center" data-name="email">
+                    <span class="label-text"><%= user.email %></span>
+                    <i class="fas fa-edit ms-2 text-muted edit-icon"></i>
+                </label>
+                <input type="email" id="email" name="email" class="form-control d-none" value="<%= user.email %>" data-old-value="<%= user.email %>">
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label fw-bold">Password</label>
+                <label class="editable-label d-flex align-items-center" data-name="password">
+                    <span class="label-text">******</span>
+                    <i class="fas fa-edit ms-2 text-muted edit-icon"></i>
+                </label>
+                <input type="password" id="password" name="password" class="form-control d-none" value="" data-old-value="">
+            </div>
         </div>
     </div>
 </div>
