@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
             modelName: "User",
             hooks: {
                 beforeCreate: (user) => {
-                    user.role = "customer"
+                    user.role = "user"
                     const salt = bcrypt.genSaltSync(10);
                     user.password = bcrypt.hashSync(user.password, salt);
                 },
@@ -65,8 +65,6 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     User.beforeCreate = (user) => {
-        console.log(user);
-
         user.role = "user"
     }
 
